@@ -1,7 +1,7 @@
 # Maintainer: Jan Boelsche <jan@lagomorph.de>
 pkgname=kiosk-initcpio
 pkgver=1.0
-pkgrel=3
+pkgrel=5
 pkgdesc="Create initramfs for compressed, optionally encrupted, read-only root filesystem"
 arch=('x86_64')
 license=('GPL')
@@ -38,7 +38,7 @@ package() {
   mkdir -p ${pkgdir}/etc/initcpio/{hooks,install}
   for p in hooks install; do
     for f in $(ls|grep "^$p-"); do
-      mv $f ${pkgdir}/etc/initcpio/$p/${f##$p-}
+      cp $f ${pkgdir}/etc/initcpio/$p/${f##$p-}
     done
   done
 
