@@ -1,7 +1,7 @@
 # Maintainer: Jan Boelsche <jan@lagomorph.de>
 pkgname=kiosk-initcpio
 pkgver=1.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Create initramfs for compressed, optionally encrupted, read-only root filesystem"
 arch=('x86_64')
 license=('GPL')
@@ -35,16 +35,16 @@ sha256sums=('131464045be52c09565ffbb182dc2de5ee5c38779df9d4016149fd70ab0947e9'
             '3ca0be52a34ba3a7d30414ead4449d6faab71f88f7e439574ce7152b87c125bd')
 
 package() {
+  mkdir -p ${pkgdir}/etc/initcpio/{hooks,install}
+  for p in hooks install; do
+    for f in $(ls|grep "^$p-"); do
+      mv $f ${pkgdir}/etc/initcpio/$p/${f##$p-}
+    done
+  done
+
   install -Dt ${pkgdir}/etc/mkinitcpio.d/ kiosk.preset
   install -Dt ${pkgdir}/etc/ mkinitcpio-kiosk-plymouth.conf
   install -Dt ${pkgdir}/etc/ mkinitcpio-kiosk.conf
   install -Dt ${pkgdir}/etc/initcpio/ archiso_shutdown
-  install -Dt ${pkgdir}/etc/initcpio/hooks/ hooks-archiso_shutdown
-  install -Dt ${pkgdir}/etc/initcpio/hooks/ hooks-archiso_loop_mnt
-  install -Dt ${pkgdir}/etc/initcpio/hooks/ hooks-archiso
-  install -Dt ${pkgdir}/etc/initcpio/install/ install-archiso_shutdown
-  install -Dt ${pkgdir}/etc/initcpio/install/ install-archiso_kms
-  install -Dt ${pkgdir}/etc/initcpio/install/ install-archiso_loop_mnt
-  install -Dt ${pkgdir}/etc/initcpio/install/ install-archiso
 }
 
