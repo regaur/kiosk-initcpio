@@ -1,0 +1,32 @@
+
+run_hook () {
+  local img="/run/archiso/bootmnt/rootfs.sfs"
+  local dm_dev="/dev/mapper/squashfs"
+  local mountpoint="/run/archiso/squashfs"
+
+  if [[ -e "${dm_dev}" ]]; then
+    msg ":: Found ${dm_dev}"
+    _mnt_dev "${dm_dev}" "${mountpoint}" "-r" "default"
+    mount_handler="archiso_loop_mount_handler"
+  else
+    msg ":: ${dm_dev} not found."
+    if [[ -e "${img}" ]]; then
+      msg ":: Found ${img}, mounting to ${mountpoint}"
+      mkdir -p "${mountpoint}"
+      mount "${img}" "${mountpoint}"
+      mount_handler="archiso_loop_mount_handler"
+    else
+      msg ":: FATAL: ${img} and ${dm_dev} not found."
+    fi
+  fi
+}
+
+archiso_loop_mount_handler () {
+  newroot="${1}"
+  msg ":: Mounting overlayfs to ${newroot}/"
+  local src="/run/archiso/squashfs"
+  mkdir -p /run/archiso/cowspace/upperdir /run/archiso/cowspace/workdir
+  mount -t overlay -o lowerdir=${src},upperdir=/run/archiso/cowspace/upperdir,workdir=/run/archiso/cowspace/workdir airootfs "${newroot}/"
+}
+
+# vim: set ft=sh ts=4 sw=4 et:
