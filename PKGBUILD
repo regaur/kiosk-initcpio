@@ -22,7 +22,7 @@ source=(
   'install-archiso'
 )
 
-sha256sums=('40c68db597646b9a8c6f4720d81cb7e2f6715c6ff80e184bc84ad37fb4426563'
+sha256sums=('131464045be52c09565ffbb182dc2de5ee5c38779df9d4016149fd70ab0947e9'
             'c48843008276fa620238d2562faeb3304cc4c41d1564800c77e8219164e758d0'
             '97276b0f511b782c0b7a61e2a626032b5d63ae4fd996d2a6ba901d0fadaf72f8'
             '7169d7d38b803bd0f95b437c92aacd1f22a6bd6e8a7ebb5a017e04b25f4fb5bf'
@@ -35,16 +35,16 @@ sha256sums=('40c68db597646b9a8c6f4720d81cb7e2f6715c6ff80e184bc84ad37fb4426563'
             '3ca0be52a34ba3a7d30414ead4449d6faab71f88f7e439574ce7152b87c125bd')
 
 package() {
-  install -t /etc/mkinitcpio.d/ kiosk.preset
-  install -t /etc/ mkinitcpio-kiosk-plymouth.conf
-  install -t /etc/ mkinitcpio-kiosk.conf
-  install -t /etc/initcpio/ archiso_shutdown
-  install -t /etc/initcpio/hooks/ hooks-archiso_shutdown
-  install -t /etc/initcpio/hooks/ hooks-archiso_loop_mnt
-  install -t /etc/initcpio/hooks/ hooks-archiso
-  install -t /etc/initcpio/install/ install-archiso_shutdown
-  install -t /etc/initcpio/install/ install-archiso_kms
-  install -t /etc/initcpio/install/ install-archiso_loop_mnt
-  install -t /etc/initcpio/install/ install-archiso
+  install -Dt ${pkgdir}/etc/mkinitcpio.d/ kiosk.preset
+  install -Dt ${pkgdir}/etc/ mkinitcpio-kiosk-plymouth.conf
+  install -Dt ${pkgdir}/etc/ mkinitcpio-kiosk.conf
+  install -Dt ${pkgdir}/etc/initcpio/ archiso_shutdown
+  install -Dt ${pkgdir}/etc/initcpio/hooks/ hooks-archiso_shutdown
+  install -Dt ${pkgdir}/etc/initcpio/hooks/ hooks-archiso_loop_mnt
+  install -Dt ${pkgdir}/etc/initcpio/hooks/ hooks-archiso
+  install -Dt ${pkgdir}/etc/initcpio/install/ install-archiso_shutdown
+  install -Dt ${pkgdir}/etc/initcpio/install/ install-archiso_kms
+  install -Dt ${pkgdir}/etc/initcpio/install/ install-archiso_loop_mnt
+  install -Dt ${pkgdir}/etc/initcpio/install/ install-archiso
 }
 

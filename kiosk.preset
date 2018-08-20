@@ -1,5 +1,8 @@
-# preset names
-PRESETS=('kiosk' 'kiosk_plymouth')
+if command -v plymouth > /dev/null; then
+  PRESETS=('kiosk_plymouth')
+else
+  PRESETS=('kiosk')
+fi
 
 ALL_kver="/boot/vmlinuz-linux"
 
@@ -8,5 +11,5 @@ kiosk_image='/boot/kiosk-initramfs.img'
 kiosk_options=""
 
 kiosk_plymouth_config='/etc/mkinitcpio-kiosk-plymouth.conf'
-kiosk_plymouth_image='/boot/kiosk-plymouth-initramfs.img'
+kiosk_plymouth_image='/boot/kiosk-initramfs.img'
 kiosk_plymouth_options=""
