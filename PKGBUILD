@@ -1,7 +1,7 @@
 # Maintainer: Jan Boelsche <jan@lagomorph.de>
 pkgname=kiosk-initcpio
 pkgver=1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Create initramfs for compressed, optionally encrupted, read-only root filesystem"
 arch=('x86_64')
 license=('GPL')
