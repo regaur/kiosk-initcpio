@@ -1,8 +1,14 @@
 
 run_hook () {
+  local cow_uuid_file="/run/archiso/bootmnt/cowspace_uuid"
   local img="/run/archiso/bootmnt/rootfs.sfs"
   local dm_dev="/dev/mapper/squashfs"
   local mountpoint="/run/archiso/squashfs"
+
+  if [[ -f "${cow_uuid_file}" ]]; then
+    cow_uuid=$(cat "${cow_uuid_file}")
+    msg ":: Found cow_uuid=${cow_uuid}"
+  fi
 
   if [[ -e "${dm_dev}" ]]; then
     msg ":: Found ${dm_dev}"
@@ -26,6 +32,9 @@ archiso_loop_mount_handler () {
   msg ":: Mounting overlayfs to ${newroot}/"
   local src="/run/archiso/squashfs"
   mkdir -p /run/archiso/cowspace/upperdir /run/archiso/cowspace/workdir
+  if [[ -v cow_uuid ]]; then
+    mount "/dev/disk/by-uuid/${cow_uuid}" /run/archiso/cowspace/upperdir
+  fi
   mount -t overlay -o lowerdir=${src},upperdir=/run/archiso/cowspace/upperdir,workdir=/run/archiso/cowspace/workdir airootfs "${newroot}/"
 }
 
