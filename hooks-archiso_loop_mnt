@@ -31,10 +31,11 @@ archiso_loop_mount_handler () {
   newroot="${1}"
   msg ":: Mounting overlayfs to ${newroot}/"
   local src="/run/archiso/squashfs"
-  mkdir -p /run/archiso/cowspace/upperdir /run/archiso/cowspace/workdir
+  mkdir -p /run/archiso/cowspace
   if [[ -n ${cow_uuid} ]]; then
-    mount "/dev/disk/by-uuid/${cow_uuid}" /run/archiso/cowspace/upperdir
+    mount "/dev/disk/by-uuid/${cow_uuid}" /run/archiso/cowspace
   fi
+  mkdir -p /run/archiso/cowspace/upperdir /run/archiso/cowspace/workdir
   mount -t overlay -o lowerdir=${src},upperdir=/run/archiso/cowspace/upperdir,workdir=/run/archiso/cowspace/workdir airootfs "${newroot}/"
 }
 
