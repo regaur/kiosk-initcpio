@@ -5,9 +5,23 @@ run_hook () {
   local dm_dev="/dev/mapper/squashfs"
   local mountpoint="/run/archiso/squashfs"
 
+  local datapart_uuid_file="/run/archiso/bootmnt/datapart_uuid"
+  local datapart_dirs_file="/run/archiso/bootmnt/datapart_dirs"
+
   if [[ -f "${cow_uuid_file}" ]]; then
     cow_uuid=$(cat "${cow_uuid_file}")
     msg ":: Found cow_uuid=${cow_uuid}"
+  fi
+
+  if [[ -f "${datapart_uuid_file}" ]]; then
+    datapart_uuid=$(cat "${datapart_uuid_file}")
+    msg ":: Found datapart_uuid=${datapart_uuid}"
+    if [[ -f "${datapart_dirs_file}" ]]; then
+      msg ":: Data partition directories list found."
+      cat "${datapart_dirs_file}"
+    else
+      msg ":: No data directories specified"
+    fi
   fi
 
   if [[ -e "${dm_dev}" ]]; then
@@ -32,11 +46,26 @@ archiso_loop_mount_handler () {
   msg ":: Mounting overlayfs to ${newroot}/"
   local src="/run/archiso/squashfs"
   mkdir -p /run/archiso/cowspace
-  if [[ -n ${cow_uuid} ]]; then
+  if [[ -n "${cow_uuid}" ]]; then
     mount "/dev/disk/by-uuid/${cow_uuid}" /run/archiso/cowspace
   fi
   mkdir -p /run/archiso/cowspace/upperdir /run/archiso/cowspace/workdir
   mount -t overlay -o lowerdir=${src},upperdir=/run/archiso/cowspace/upperdir,workdir=/run/archiso/cowspace/workdir airootfs "${newroot}/"
+  
+  if [[ -n "${datapart_uuid}" ]]; then
+    local data_mnt=/run/archiso/datapart
+    mkdir -p "${data_mnt}"
+    mount "/dev/disk/by-uuid/${datapart_uuid}" "${data_mnt}"
+    
+    local datapart_dirs_file="/run/archiso/bootmnt/datapart_dirs"
+    if [[ -f "${datapart_dirs_file}" ]]; then
+      while IFS= read -r d; do
+        rm -rf "${newroot}${d}"
+        msg ":: Linking ${newroot}${d} -> ${data_mnt}${d}"
+        ln -s "${data_mnt}${d}" "${newroot}${d}"
+      done < "${datapart_dirs_file}"
+    fi
+  fi
 }
 
 # vim: set ft=sh ts=4 sw=4 et:
