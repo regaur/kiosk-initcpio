@@ -12,6 +12,13 @@ run_hook () {
     _mnt_dev "${archisodevice}" "/run/archiso/bootmnt" "-r" "defaults"
   fi
 
+  if [[ -f /run/archiso/bootmnt/efiboot.img ]]; then
+    msg ":: Found efiboot.img on bootmnt -- this should not have happened."
+    umount /run/archiso/bootmnt
+    _mnt_dev "${archisodevice}" "/run/archiso/efiboot" "-r" "defaults"
+    _mnt_dev "/run/archiso/efiboot/efiboot.img" "/run/archiso/bootmnt" "-r" "defaults"
+  fi
+
   local luks_img="/run/archiso/bootmnt/luks.img"
  
   if [[ -e "${luks_img}" ]]; then
