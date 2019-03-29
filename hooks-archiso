@@ -16,7 +16,12 @@ run_hook () {
     msg ":: Found efiboot.img on bootmnt -- this should not have happened."
     umount /run/archiso/bootmnt
     _mnt_dev "${archisodevice}" "/run/archiso/efiboot" "-r" "defaults"
-    _mnt_dev "/run/archiso/efiboot/efiboot.img" "/run/archiso/bootmnt" "-r" "defaults"
+    if mount -o defaults -r "/run/archiso/efiboot/efiboot.img" "/run/archiso/bootmnt"; then
+        msg ":: Mounted efiboot.img"
+    else
+        msg ":: FAIL to mount efiboot.img"
+        launch_interactive_shell
+    fi
   fi
 
   local luks_img="/run/archiso/bootmnt/luks.img"
