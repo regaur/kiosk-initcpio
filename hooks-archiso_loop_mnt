@@ -60,7 +60,8 @@ archiso_loop_mount_handler () {
     local datapart_dirs_file="/run/archiso/bootmnt/datapart_dirs"
     if [[ -f "${datapart_dirs_file}" ]]; then
       while IFS= read -r d; do
-        rm -rf "${newroot}${d}"
+        rm -rf "${newroot}${d}" || true
+        mkdir -p "$(dirname "${newroot}${d}")"
         msg ":: Linking ${newroot}${d} -> ${data_mnt}${d}"
         ln -s "${data_mnt}${d}" "${newroot}${d}"
       done < "${datapart_dirs_file}"
