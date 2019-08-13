@@ -1,8 +1,25 @@
 #!/bin/ash
 
+check_update() {
+  echo ":: CHECKING FOR UPDATE ..."
+  local uuid=$(cat /oldrun/archiso/bootmnt/datapart_uuid)
+  mkdir /data
+  mount "/dev/disk/by-uuid/${uuid}" /data
+  local update=/data/update.tar 
+
+  if [[ -f "${update}" ]]; then
+    echo ":: APPLYING UPDATE"
+    mount -o remount,rw /oldrun/archiso/bootmnt
+    tar --extract --overwrite --no-same-owner --one-top-level=/oldrun/archiso/bootmnt -f "$update" && rm "$update" 
+    echo ":: DONE"
+  fi
+}
+
 # /oldroot depends on things inside /oldroot/run/archiso...
 mkdir /oldrun
 mount -n --move /oldroot/run /oldrun
+
+check_update
 
 # Unmount all mounts now.
 umount $(mount | awk '$3 ~/^\/oldroot/ {print $3}' | sort -r)

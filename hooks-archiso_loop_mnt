@@ -51,7 +51,10 @@ archiso_loop_mount_handler () {
   fi
   mkdir -p /run/archiso/cowspace/upperdir /run/archiso/cowspace/workdir
   mount -t overlay -o lowerdir=${src},upperdir=/run/archiso/cowspace/upperdir,workdir=/run/archiso/cowspace/workdir airootfs "${newroot}/"
-  
+ 
+  msg ":: Mounting /boot"
+  mount --bind /run/archiso/bootmnt/ "${newroot}/boot"
+
   if [[ -n "${datapart_uuid}" ]]; then
     local data_mnt=/run/archiso/datapart
     mkdir -p "${data_mnt}"

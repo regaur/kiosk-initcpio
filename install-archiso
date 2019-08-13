@@ -23,8 +23,8 @@ build() {
     add_file /usr/lib/initcpio/udev/11-dm-initramfs.rules /usr/lib/udev/rules.d/11-dm-initramfs.rules
 
     local t=$(mktemp)
-    echo "${efi_volume_id}" > t
-    add_file t /efi_volume_id
+    echo "${efi_volume_id}" > "${t}"
+    add_file "${t}" /efi_volume_id
   
     if [[ $ARCHISO_GNUPG_FD ]]; then
         mkdir -p "$BUILDROOT$dest"/gpg

@@ -1,6 +1,6 @@
 # Maintainer: Jan Boelsche <jan@lagomorph.de>
 pkgname=kiosk-initcpio
-pkgver=1.8
+pkgver=1.13
 pkgrel=1
 pkgdesc="Create initramfs for compressed, optionally encrypted, read-only root filesystem"
 arch=('x86_64')
@@ -25,14 +25,14 @@ source=(
 sha256sums=('131464045be52c09565ffbb182dc2de5ee5c38779df9d4016149fd70ab0947e9'
             'c48843008276fa620238d2562faeb3304cc4c41d1564800c77e8219164e758d0'
             '97276b0f511b782c0b7a61e2a626032b5d63ae4fd996d2a6ba901d0fadaf72f8'
-            '7169d7d38b803bd0f95b437c92aacd1f22a6bd6e8a7ebb5a017e04b25f4fb5bf'
+            'c89f72232005470a2851c0b750fce8c606e3512eecc5925faa4c2fa0b00667a7'
             'b40771a171b0b182b98670885340bdc12ca86f6eb2de8c565316091baf7ff3c8'
-            'bd26ce546ebec48f8772674dbcb392c48aa94f574f5a2447138b7ce767f5059e'
+            '7fa7d65b0228b5caa5344964739347a999afbfa63bf86e67193668f9337936db'
             'd1bb9039b27bb40644e78853e0ef68c98c53799cf20d69c121208b4c7060f4e1'
-            'fd8701cc0618b38c9290ab973f6947a41c0cfd661a71e63f09ba7b7c14382172'
+            '04c58d29c882398a596d5e934016657853c526247f51655fb400f917197aebd6'
             'd383ba54094826fbd7c9da37eefdabf0be770bf6bc9a998427162884dc8d0c94'
             '8edde9dffa07ead6bfc6277f145385b6152215144d5355c6e21911c32d0a869c'
-            '3ca0be52a34ba3a7d30414ead4449d6faab71f88f7e439574ce7152b87c125bd')
+            '2d3244f7f3fade4b95302fece24775ecc1684082b1fa2149f3fadaec8ebcd943')
 
 package() {
   mkdir -p ${pkgdir}/etc/initcpio/{hooks,install}

@@ -2,6 +2,7 @@
 
 build() {
     add_binary cp
+    add_binary tar
     add_runscript
     add_file /etc/initcpio/archiso_shutdown /shutdown
 }
