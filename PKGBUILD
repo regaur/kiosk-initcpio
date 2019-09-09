@@ -1,6 +1,6 @@
 # Maintainer: Jan Boelsche <jan@lagomorph.de>
 pkgname=kiosk-initcpio
-pkgver=1.14
+pkgver=1.15
 pkgrel=1
 pkgdesc="Create initramfs for compressed, optionally encrypted, read-only root filesystem"
 arch=('x86_64')
@@ -28,7 +28,7 @@ sha256sums=('131464045be52c09565ffbb182dc2de5ee5c38779df9d4016149fd70ab0947e9'
             'c89f72232005470a2851c0b750fce8c606e3512eecc5925faa4c2fa0b00667a7'
             'b40771a171b0b182b98670885340bdc12ca86f6eb2de8c565316091baf7ff3c8'
             '7fa7d65b0228b5caa5344964739347a999afbfa63bf86e67193668f9337936db'
-            'd1bb9039b27bb40644e78853e0ef68c98c53799cf20d69c121208b4c7060f4e1'
+            'f58392aba5b43010f066d215b88cf2d2b42613be676b221a67d859644bf29d16'
             '04c58d29c882398a596d5e934016657853c526247f51655fb400f917197aebd6'
             'd383ba54094826fbd7c9da37eefdabf0be770bf6bc9a998427162884dc8d0c94'
             '8edde9dffa07ead6bfc6277f145385b6152215144d5355c6e21911c32d0a869c'

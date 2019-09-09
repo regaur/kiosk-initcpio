@@ -1,5 +1,9 @@
 
 run_hook () {
+  # seems like some mechanism sets a value of 'y' in env vars
+  # for empty kernal paramters
+  [[ "$archisodevice" == "y" ]] && archisodevice=""
+
   # we expect to find a file containing the ESP volume uuid
   if [[ -f /efi_volume_id ]]; then
     efi_volume_id=$(cat /efi_volume_id)
