@@ -5,7 +5,7 @@ check_update() {
   local uuid=$(cat /oldrun/archiso/bootmnt/datapart_uuid)
   mkdir /data
   mount "/dev/disk/by-uuid/${uuid}" /data
-  local update=/data/update.tar 
+  local update=/data/kiosk-system-update/update.tar
 
   if [[ -f "${update}" ]]; then
     echo ":: APPLYING UPDATE"
