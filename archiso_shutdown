@@ -6,8 +6,8 @@ check_update() {
   mkdir /data
   mount "/dev/disk/by-uuid/${uuid}" /data
   local updatedir="${treos-updatedir}"
-  [[ -z "${updatedir}" ]] && updatedir=/data/kiosk-system-update
-  local update="${updatedir}/update.tar"
+  [[ -z "${updatedir}" ]] && updatedir=/kiosk-system-update
+  local update="/data${updatedir}/update.tar"
 
   if [[ -f "${update}" ]]; then
     echo ":: APPLYING UPDATE"
