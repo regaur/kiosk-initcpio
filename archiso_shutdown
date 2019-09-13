@@ -8,12 +8,15 @@ check_update() {
   local updatedir="${treos-updatedir}"
   [[ -z "${updatedir}" ]] && updatedir=/kiosk-system-update
   local update="/data${updatedir}/update.tar"
-
+  echo ":: Looking for ${update}"
+  ls "${updatedir}"
+  sleep 3
   if [[ -f "${update}" ]]; then
     echo ":: APPLYING UPDATE"
     mount -o remount,rw /oldrun/archiso/bootmnt
     tar --extract --overwrite --no-same-owner --one-top-level=/oldrun/archiso/bootmnt -f "$update" && rm "$update" 
     echo ":: DONE"
+    sleep 4
   fi
 }
 
