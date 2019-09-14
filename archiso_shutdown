@@ -5,7 +5,7 @@ check_update() {
   local uuid=$(cat /oldrun/archiso/bootmnt/datapart_uuid)
   mkdir /data
   mount "/dev/disk/by-uuid/${uuid}" /data
-  local updatedir="${treos-updatedir}"
+  local updatedir="${treos_updatedir}"
   [[ -z "${updatedir}" ]] && updatedir=/kiosk-system-update
   local update="/data${updatedir}/update.tar"
   echo ":: Looking for ${update}"
